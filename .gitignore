@@ -1,28 +1,101 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
 
-# Precompiled Headers
-*.gch
-*.pch
+#include "stdafx.h"
+#include <conio.h> 
+#include <iostream> 
+#include <string.h> 
+#include <math.h> 
+using namespace std; 
+#define N 30 
+#define M 30 
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+void cargar(int mat[N][M], int n, int m)
+{ 
+	int i,j; 
+	for(i=0;i<n;i++)
+	{ 
+		for(j=0;j<m;j++)
+		{ 
+			cout<<"Introduzca elemento para mat["<<i<<"]["<<j<<"]: "; 
+			cin>>mat[i][j]; 
+		} 
+	} 
+} 
 
-# Fortran module files
-*.mod
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+void mostrar(int mat[N][M], int n, int m)
+{ 
+	int i,j; 
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<m;j++)
+		{ 
+			cout<<mat[i][j]<<" "; 
+		} 
+		cout<<endl; 
+	} 
+	cout<<endl; 
+} 
 
-# Executables
-*.exe
-*.out
-*.app
+void multiplicarMatrices(int A[N][M], int n1,int m1, int B[N][M],int n2, int m2, int C[N][M], int &n3, int &m3)
+{
+	int i,j,k,acum=0; 
+	if(m1==n2)
+	{
+		for(i=0; i<n1 ; i++)
+		{ 
+			for(j=0; j<m2 ; j++)
+			{ 
+				acum=0; 
+				for (k=0; k < m1 ; k++)
+				{ 
+					acum=acum + (A[i][k] * B[k][j]); 
+				} 
+				C[i][j]=acum;
+			}
+		}
+		n3=n1; 
+		m3=m2;
+		
+		cout<<"matriz C"<<endl;
+		mostrar(C,n3,m3);
+	}
+	else
+	{
+		cout<<"no se pueden multiplicar"<<endl;
+	}
+} 
+
+
+int main()
+{
+	int A[N][M];
+	int B[N][M];
+	int C[N][M];
+	int n1,n2,n3,m1,m2,m3;
+
+	cout<<"ingresar filas matriz A:";
+	cin>>n1;
+	cout<<"ingresar columnas matriz A:";
+	cin>>m1;
+
+	cout<<"ingresar filas matriz B:";
+	cin>>n2;
+	cout<<"ingresar columnas matriz B:";
+	cin>>m2;
+
+	cargar(A,n1,m1);
+	cargar(B,n2,m2);
+	
+	cout<<"matriz A"<<endl;
+	mostrar(A,n1,m1);
+	
+	cout<<"matriz B"<<endl;
+	mostrar(B,n2,m2);
+
+	multiplicarMatrices(A,n1,m1,B,n2,m2,C,n3,m3);
+
+	getch();
+
+	return 0;
+}
+ 
